@@ -7,25 +7,25 @@ public enum UnidadeFederativa {
 	AM, // Amazonas
 	BA, // Bahia
 	CE, // Ceará
-	DF, // Distrito federal
-	ES, // Espirito santo
+	DF, // Distrito Federal
+	ES, // Espírito Santo
 	GO, // Goiás
 	MA, // Maranhão
-	MT, // Mato grosso
-	MS, // Mato grosso do sul
-	MG, // Minas gerais
+	MT, // Mato Grosso
+	MS, // Mato Grosso do Sul
+	MG, // Minas Gerais
 	PA, // Pará
 	PB, // Paraíba
 	PR, // Paraná
 	PE, // Pernambuco
 	PI, // Piauí
-	RJ, // Rio de janeiro
-	RN, // Rio grande do norte
-	RS, // Rio grande do sul
-	RO, // Rondonia
+	RJ, // Rio de Janeiro
+	RN, // Rio Grande do Norte
+	RS, // Rio Grande do Sul
+	RO, // Rondônia
 	RR, // Roraima
-	SC, // Santa catarina
-	SP, // São paulo
-	SE, // Serjipe
+	SC, // Santa Catarina
+	SP, // São Paulo
+	SE, // Sergipe
 	TO; // Tocantins 
 }

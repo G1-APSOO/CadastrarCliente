@@ -2,6 +2,6 @@ package excecoes;
 
 public class ExcecaoSomenteNumerosPositivosPermitidos extends RuntimeException {
 	public ExcecaoSomenteNumerosPositivosPermitidos() {
-		super("Somente numeros positivos são aceitos.");
+		super("Somente números positivos são aceitos.");
 	}
 }
