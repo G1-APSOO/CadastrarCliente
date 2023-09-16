@@ -3,8 +3,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import excecoes.ExcecaoClienteMuitoAntigo;
-import excecoes.ExcecaoClienteMuitoNovo;
+import excecoes.ExcecaoAnoInvalido;
 import excecoes.ExcecaoDiaInvalido;
 import excecoes.ExcecaoMesInvalido;
 import excecoes.ExcecaoParametroVazio;
@@ -19,8 +18,7 @@ public class Data {
     throws ExcecaoParametroVazio,
     	ExcecaoDiaInvalido,
     	ExcecaoMesInvalido,
-        ExcecaoClienteMuitoAntigo,
-        ExcecaoClienteMuitoNovo {
+        ExcecaoAnoInvalido {
 
         setAno(ano);
         setMes(mes);
@@ -49,8 +47,7 @@ public class Data {
 
     private void setAno(int ano) 
     throws ExcecaoParametroVazio,
-    	ExcecaoClienteMuitoNovo, 
-    	ExcecaoClienteMuitoAntigo {
+    	ExcecaoAnoInvalido {
     	
     	if (ano <= 0) {
     		throw new ExcecaoParametroVazio("ano");
@@ -61,8 +58,8 @@ public class Data {
         // Condição: 
         // 1: Ter + de 18 anos
         // 2: Ter - de 100 anos (Evitando umas loucuras tipo nasci em 1800)
-        if (ano > (anoAtual-18)) throw new ExcecaoClienteMuitoNovo();
-        else if ((anoAtual-100) < ano) throw new ExcecaoClienteMuitoAntigo();
+        if (ano > (anoAtual-18)) throw new ExcecaoAnoInvalido("menor de 18 anos");
+        else if ((anoAtual-100) < ano) throw new ExcecaoAnoInvalido("maior de 100 anos");
         
         this.ano = ano;
     }

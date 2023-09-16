@@ -2,8 +2,7 @@ package classes;
 import java.util.regex.Pattern;
 
 import excecoes.ExcecaoCPFInvalido;
-import excecoes.ExcecaoClienteMuitoAntigo;
-import excecoes.ExcecaoClienteMuitoNovo;
+import excecoes.ExcecaoAnoInvalido;
 import excecoes.ExcecaoDiaInvalido;
 import excecoes.ExcecaoEmailInvalido;
 import excecoes.ExcecaoMesInvalido;
@@ -35,8 +34,7 @@ public class Cliente {
 	throws ExcecaoParametroVazio,
 		ExcecaoDiaInvalido,
 		ExcecaoMesInvalido,
-		ExcecaoClienteMuitoNovo,
-		ExcecaoClienteMuitoAntigo,
+		ExcecaoAnoInvalido,
 		ExcecaoCPFInvalido,
 		ExcecaoSomenteLetrasPermitidas,
 		ExcecaoEmailInvalido,
@@ -165,9 +163,8 @@ public class Cliente {
 	public void setDataNascimento(int dia, int mes, int ano) 
 	throws ExcecaoParametroVazio,
 		ExcecaoDiaInvalido,
-		ExcecaoMesInvalido, 
-		ExcecaoClienteMuitoAntigo,
-		ExcecaoClienteMuitoNovo {
+		ExcecaoMesInvalido,
+		ExcecaoAnoInvalido {
 		
 		dataDeNascimento = new Data(dia, mes, ano);
 	}
