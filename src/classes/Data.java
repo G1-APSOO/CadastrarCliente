@@ -62,7 +62,7 @@ public class Data {
         // 1: Ter + de 18 anos
         // 2: Ter - de 100 anos (Evitando umas loucuras tipo nasci em 1800)
         if (ano > (anoAtual-18)) throw new ExcessaoClienteMuitoNovo();
-        else if ((anoAtual-100) < ano) throw new ExcessaoClienteMuitoAntigo();
+        else if ((anoAtual-100) > ano) throw new ExcessaoClienteMuitoAntigo();
         
         this.ano = ano;
     }
