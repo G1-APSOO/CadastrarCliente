@@ -6,9 +6,11 @@ package conexaoBanco;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import classes.Cliente;
+import classes.UnidadeFederativa;
 
 //Início da classe de conexão//
 
@@ -80,19 +82,6 @@ public class ConexaoMySQL {
 
 	public static boolean InserirCliente(Cliente cliente) {
 
-//		String sql = "INSERT INTO Cliente VALUES ('08010842109',"
-//				+ "'Pedro Paulo',"
-//				+ "'Gumercindo',"
-//				+ "'Centro',"
-//				+ "'Terenos',"
-//				+ "'pedroapsilva22@gmail.com',"
-//				+ "'13/05/2002',"
-//				+ "1061,\r\n"
-//				+ "99881718,"
-//				+ "02)";
-
-		// Modify sql table to column dataNascimento receive date
-
 		String sql = "INSERT INTO Cliente VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 
@@ -116,6 +105,41 @@ public class ConexaoMySQL {
 		} catch (SQLException e) {
 			System.out.println(e);
 			return false;
+		}
+	}
+
+	public static Cliente BuscarCliente(String CPF) {
+
+		String sql = "SELECT * FROM Cliente WHERE CPF = ?";
+
+		try {
+
+			PreparedStatement statement = ConexaoMySQL.getConexaoMySQL().prepareStatement(sql);
+			statement.setString(1, CPF);
+
+			try (ResultSet rs = statement.executeQuery()) {
+				while (rs.next()) {
+					String data = rs.getString("dataDeNascimento");
+					String[] dataPartes = data.split("/");
+
+					Cliente c = new Cliente(rs.getString("CPF"), rs.getString("nome"), rs.getString("email"),
+							rs.getString("telefone"), Integer.parseInt(dataPartes[0]), Integer.parseInt(dataPartes[1]),
+							Integer.parseInt(dataPartes[2]));
+
+					c.setBairro(rs.getString("bairro"));
+					c.setCidade(rs.getString("cidade"));
+					c.setRua(rs.getString("rua"));
+					c.setNumeroResidencia(rs.getInt("numeroResidencia"));
+					UnidadeFederativa uf = UnidadeFederativa.values()[rs.getInt("unidadeFederativa")];
+					c.setUF(uf);
+					return c;
+				}
+			}
+			return null;
+
+		} catch (SQLException e) {
+			System.out.println(e);
+			return null;
 		}
 	}
 
