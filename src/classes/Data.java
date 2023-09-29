@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import excecoes.ExcecaoAnoInvalido;
 import excecoes.ExcecaoDiaInvalido;
 import excecoes.ExcecaoMesInvalido;
-import excecoes.ExcecaoParametroVazio;
+import excecoes.ExcecaoNaoPreenchido;
 
 public class Data {
 
@@ -16,7 +16,7 @@ public class Data {
     private int ano;
 
     public Data(int dia, int mes, int ano)  
-    throws ExcecaoParametroVazio,
+    throws ExcecaoNaoPreenchido,
     	ExcecaoDiaInvalido,
     	ExcecaoMesInvalido,
         ExcecaoAnoInvalido {
@@ -25,10 +25,10 @@ public class Data {
         setDia(dia);
     }
 
-    private void setDia(int dia) throws ExcecaoParametroVazio, ExcecaoDiaInvalido {
+    private void setDia(int dia) throws ExcecaoNaoPreenchido, ExcecaoDiaInvalido {
     	
     	if (dia <= 0) {
-    		throw new ExcecaoParametroVazio("dia");
+    		throw new ExcecaoNaoPreenchido("dia");
     	}
 
         verificaDia(dia, this.mes, this.ano);
@@ -36,9 +36,13 @@ public class Data {
         this.dia = dia;
     }
 
-    private void setMes(int mes) throws ExcecaoMesInvalido {
+    private void setMes(int mes) throws ExcecaoNaoPreenchido, ExcecaoMesInvalido {
     	
-        if (mes > 12 || mes < 0) {
+    	if (mes <= 0) {
+    		throw new ExcecaoNaoPreenchido("mês");
+    	}
+    	
+        if (mes > 12) {
             throw new ExcecaoMesInvalido();
         }
 
@@ -46,11 +50,11 @@ public class Data {
     }
 
     private void setAno(int ano) 
-    throws ExcecaoParametroVazio,
+    throws ExcecaoNaoPreenchido,
     	ExcecaoAnoInvalido {
     	
     	if (ano <= 0) {
-    		throw new ExcecaoParametroVazio("ano");
+    		throw new ExcecaoNaoPreenchido("ano");
     	}
 
         int anoAtual = LocalDate.now().getYear();
@@ -59,7 +63,7 @@ public class Data {
         // 1: Ter + de 18 anos
         // 2: Ter - de 100 anos (Evitando umas loucuras tipo nasci em 1800)
         if (ano > (anoAtual-18)) throw new ExcecaoAnoInvalido("menor de 18 anos");
-        else if ((anoAtual-100) < ano) throw new ExcecaoAnoInvalido("maior de 100 anos");
+        else if ((anoAtual-100) > ano) throw new ExcecaoAnoInvalido("maior de 100 anos");
         
         this.ano = ano;
     }
@@ -91,7 +95,9 @@ public class Data {
     
     public String getData() {
 		
-    	String diaString, mesString, anoString;
+    	String diaString;
+    	String mesString;
+    	String anoString;
     	
     	if (dia < 10) diaString = "0" + Integer.toString(dia);
     	else diaString = Integer.toString(dia);
