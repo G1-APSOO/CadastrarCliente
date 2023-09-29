@@ -3,10 +3,11 @@ import java.util.regex.Pattern;
 
 import excecoes.ExcecaoCPFInvalido;
 import excecoes.ExcecaoAnoInvalido;
+import excecoes.ExcecaoAtributoVazio;
 import excecoes.ExcecaoDiaInvalido;
 import excecoes.ExcecaoEmailInvalido;
 import excecoes.ExcecaoMesInvalido;
-import excecoes.ExcecaoParametroVazio;
+import excecoes.ExcecaoNaoPreenchido;
 import excecoes.ExcecaoSomenteLetrasPermitidas;
 import excecoes.ExcecaoSomenteNumerosPositivosPermitidos;
 import excecoes.ExcecaoTelefoneInvalido;
@@ -31,7 +32,7 @@ public class Cliente {
 	// O que for além do obrigatório a gente coloca como setTanan após criar a instancia
 	public Cliente(String CPF, String nome, String email, String telefone, 
 			int diaDoNascimento, int mesDoNascimento, int anoDoNascimento)
-	throws ExcecaoParametroVazio,
+	throws ExcecaoNaoPreenchido,
 		ExcecaoDiaInvalido,
 		ExcecaoMesInvalido,
 		ExcecaoAnoInvalido,
@@ -50,11 +51,9 @@ public class Cliente {
 	} 
 	
 
-	public void setCPF(String novoCPF) throws ExcecaoParametroVazio, ExcecaoCPFInvalido {
-		
-		if (novoCPF == null || novoCPF.isEmpty() || novoCPF.isBlank()) {
-			throw new ExcecaoParametroVazio("CPF");
-		}
+	public void setCPF(String novoCPF) throws ExcecaoNaoPreenchido, ExcecaoCPFInvalido {
+				
+		if (novoCPF == null || novoCPF.isEmpty() || novoCPF.isBlank()) throw new ExcecaoNaoPreenchido("CPF");
 		
 		boolean eValido = ValidadorCPF.isCPF(novoCPF);
 		
@@ -63,105 +62,72 @@ public class Cliente {
 		CPF = novoCPF;
 	}
 
-	public void setNome(String nome) throws ExcecaoParametroVazio, ExcecaoSomenteLetrasPermitidas {
+	public void setNome(String nome) throws ExcecaoNaoPreenchido, ExcecaoSomenteLetrasPermitidas {
 		
-		if (nome == null || nome.isEmpty() || nome.isBlank()) {
-			throw new ExcecaoParametroVazio("nome");
-		}
-		
-		if (nome.matches("[a-zA-Z]+") == false) {
-			throw new ExcecaoSomenteLetrasPermitidas();
-		}
+		if (nome == null || nome.isEmpty() || nome.isBlank()) throw new ExcecaoNaoPreenchido("Nome não está preenchido");
+		if (nome.matches("[a-zA-Z]+") == false) throw new ExcecaoSomenteLetrasPermitidas("nome");
 		
 		this.nome = nome;
 	}
 
-	public void setRua(String rua) throws ExcecaoParametroVazio, ExcecaoSomenteLetrasPermitidas {
+	public void setRua(String rua) throws ExcecaoNaoPreenchido, ExcecaoSomenteLetrasPermitidas {
 		
-		if (rua == null || rua.isEmpty() || rua.isBlank()) {
-			throw new ExcecaoParametroVazio("rua");
-		}
-		
-		if (rua.matches("[a-zA-Z]+") == false) {
-			throw new ExcecaoSomenteLetrasPermitidas();
-		}
+		if (rua == null || rua.isEmpty() || rua.isBlank()) throw new ExcecaoNaoPreenchido("rua");
 		
 		this.rua = rua;
 	}
 
-	public void setBairro(String bairro) throws ExcecaoParametroVazio, ExcecaoSomenteLetrasPermitidas {
+	public void setBairro(String bairro) throws ExcecaoNaoPreenchido, ExcecaoSomenteLetrasPermitidas {
 		
-		if (bairro == null || bairro.isEmpty() || bairro.isBlank()) {
-			throw new ExcecaoParametroVazio("bairro");
-		}
-		
-		if (bairro.matches("[a-zA-Z]+") == false) {
-			throw new ExcecaoSomenteLetrasPermitidas();
-		}
+		if (bairro == null || bairro.isEmpty() || bairro.isBlank()) throw new ExcecaoNaoPreenchido("bairro");
 		
 		this.bairro = bairro;
 	}
 
-	public void setCidade(String cidade) throws ExcecaoParametroVazio, ExcecaoSomenteLetrasPermitidas {
+	public void setCidade(String cidade) throws ExcecaoNaoPreenchido, ExcecaoSomenteLetrasPermitidas {
 		
-		if (cidade == null || cidade.isEmpty() || cidade.isBlank()) {
-			throw new ExcecaoParametroVazio("cidade");
-		}
-		
-		if (cidade.matches("[a-zA-Z]+") == false) {
-			throw new ExcecaoSomenteLetrasPermitidas();
-		}
+		if (cidade == null || cidade.isEmpty() || cidade.isBlank()) throw new ExcecaoNaoPreenchido("cidade");
+		if (cidade.matches("[a-zA-Z]+") == false) throw new ExcecaoSomenteLetrasPermitidas("cidade");
 		
 		this.cidade = cidade;
 	}
 	
-	public void setEmail(String email) throws ExcecaoParametroVazio, ExcecaoEmailInvalido {
+	public void setEmail(String email) throws ExcecaoNaoPreenchido, ExcecaoEmailInvalido {
 		
-		if (email == null || email.isEmpty() || email.isBlank()) {
-			throw new ExcecaoParametroVazio("email");
-		}
+		if (email == null || email.isEmpty() || email.isBlank()) throw new ExcecaoNaoPreenchido("email");
 		
-		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
                   
-		Pattern pat = Pattern.compile(emailRegex);
-		if (pat.matcher(email).matches() == false) {
-			throw new ExcecaoEmailInvalido();
-		}
-		
+		boolean emailValido = Pattern.matches(emailRegex, email);
+		if (emailValido == false) throw new ExcecaoEmailInvalido();
+
 		this.email = email;
 	}
 	
 	public void setNumeroResidencia(int numeroResidencia) throws ExcecaoSomenteNumerosPositivosPermitidos {
 		
-		if (numeroResidencia <= 0) {
-			throw new ExcecaoSomenteNumerosPositivosPermitidos();
-		}
+		if (numeroResidencia <= 0) throw new ExcecaoSomenteNumerosPositivosPermitidos();
 		
 		this.numeroResidencia = numeroResidencia;
 	}
 	
-	public void setTelefone(String telefone) throws ExcecaoParametroVazio, ExcecaoTelefoneInvalido {
+	public void setTelefone(String telefone) throws ExcecaoNaoPreenchido, ExcecaoTelefoneInvalido {
 		
-		if (telefone == null || telefone.isEmpty() || telefone.isBlank()) {
-			throw new ExcecaoParametroVazio("telefone");
-		}
-		
-		if (telefone.length() < 8 || telefone.length() > 11) {
-			throw new ExcecaoTelefoneInvalido();
-		}
+		if (telefone == null || telefone.isEmpty() || telefone.isBlank()) throw new ExcecaoNaoPreenchido("telefone");
+		if (telefone.length() != 11) throw new ExcecaoTelefoneInvalido();
 		
 		this.telefone = telefone;
 	}
 	
 	public void setUF(UnidadeFederativa novaUF) {
+		
+		if (novaUF == null) throw new ExcecaoNaoPreenchido("unidade federativa");
+		
 		this.UF = novaUF;
 	}
 	
 	public void setDataNascimento(int dia, int mes, int ano) 
-	throws ExcecaoParametroVazio,
+	throws ExcecaoNaoPreenchido,
 		ExcecaoDiaInvalido,
 		ExcecaoMesInvalido,
 		ExcecaoAnoInvalido {
@@ -181,19 +147,31 @@ public class Cliente {
 		return email;
 	}
 
-	public String getRua() {
+	public String getRua() throws ExcecaoAtributoVazio {
+		
+		if (rua == null) throw new ExcecaoAtributoVazio("rua");
+		
 		return rua;
 	}
 	
-	public String getBairro() {
+	public String getBairro() throws ExcecaoAtributoVazio {
+		
+		if (bairro == null) throw new ExcecaoAtributoVazio("bairro");
+		
 		return bairro;
 	}
 	
-	public String getCidade() {
+	public String getCidade() throws ExcecaoAtributoVazio {
+		
+		if (cidade == null) throw new ExcecaoAtributoVazio("cidade");
+		
 		return cidade;
 	}
 
-	public int getNumeroResidencia() {
+	public int getNumeroResidencia() throws ExcecaoAtributoVazio {
+		
+		if (numeroResidencia == 0) throw new ExcecaoAtributoVazio("numero da residencia");
+		
 		return numeroResidencia;
 	}
 
@@ -205,7 +183,10 @@ public class Cliente {
 		return telefone;
 	}
 
-	public UnidadeFederativa getUF() {
+	public UnidadeFederativa getUF() throws ExcecaoAtributoVazio {
+		
+		if (UF == null) throw new ExcecaoAtributoVazio("unidade federativa");
+		
 		return UF;
 	}
 	
