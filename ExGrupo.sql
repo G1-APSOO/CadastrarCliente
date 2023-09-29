@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `ExGrupo`.`Cliente` (
   `email` VARCHAR(100) NOT NULL,
   `dataDeNascimento` VARCHAR(10) NOT NULL,
   `numeroResidencia` INT NOT NULL,
-  `telefone` INT NOT NULL,
+  `telefone` VARCHAR(11) NOT NULL,
   `unidadeFederativa` INT NOT NULL,
   UNIQUE INDEX `CPF_UNIQUE` (`CPF` ASC) VISIBLE,
   PRIMARY KEY (`CPF`))

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import classes.Cliente;
 import classes.UnidadeFederativa;
+import excecoes.ExcecaoAtributoVazio;
 
 public class ClienteDAO {
 
@@ -33,6 +34,9 @@ public class ClienteDAO {
 			return true;
 		} catch (SQLException e) {
 			System.out.println(e);
+			return false;
+		} catch (ExcecaoAtributoVazio e) {
+			System.out.println("Atributo Vazio!");
 			return false;
 		}
 	}
@@ -72,7 +76,12 @@ public class ClienteDAO {
 		}
 	}
 
-	public static boolean atualizarCliente(Cliente cliente) {
+	public static boolean atualizarCliente(Cliente cliente, String CPF) {
+
+		if (CPF.equals(cliente.getCPF()) == false) {
+			System.out.println("CPF não pode ser alterado!");
+			return false;
+		}
 
 		String sql = "UPDATE Cliente SET nome = ?, rua = ?, bairro = ?, cidade = ?, email = ?, dataDeNascimento = ?, numeroResidencia = ?, telefone = ?, unidadeFederativa = ? WHERE CPF = ?";
 
@@ -88,7 +97,7 @@ public class ClienteDAO {
 			statement.setInt(7, cliente.getNumeroResidencia());
 			statement.setString(8, cliente.getTelefone());
 			statement.setInt(9, cliente.getUF().ordinal());
-			statement.setString(10, cliente.getCPF());
+			statement.setString(10, CPF);
 
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {
@@ -98,6 +107,9 @@ public class ClienteDAO {
 
 		} catch (SQLException e) {
 			System.out.println(e);
+			return false;
+		} catch (ExcecaoAtributoVazio e) {
+			System.out.println("Atributo Vazio!");
 			return false;
 		}
 	}

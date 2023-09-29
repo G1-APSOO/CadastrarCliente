@@ -33,7 +33,7 @@ public class Principal {
 		c2.setNome("Pedro Paulo Araujo Silva");
 
 		System.out.println("Atualizando Cliente");
-		System.out.println(ClienteDAO.atualizarCliente(c2));
+		System.out.println(ClienteDAO.atualizarCliente(c2, "08010842109"));
 
 		// deleção
 		// System.out.println("Deletando Cliente");
