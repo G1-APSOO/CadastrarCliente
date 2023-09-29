@@ -27,6 +27,10 @@ public class Principal {
 		Cliente c2 = connection.BuscarCliente("08010842109");
 		System.out.println(c2.getNome());
 		System.out.println(c2.getTelefone());
+		System.out.println(c2.getDataNascimento().getData());
+
+		// System.out.println("Deletando Cliente");
+		// System.out.println(connection.DeletarCliente("08010842109"));
 
 		connection.FecharConexao();
 

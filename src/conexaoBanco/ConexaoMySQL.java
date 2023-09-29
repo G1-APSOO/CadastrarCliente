@@ -143,4 +143,26 @@ public class ConexaoMySQL {
 		}
 	}
 
+	// atualizar cliente
+
+	public static boolean DeletarCliente(String CPF) {
+
+		String sql = "DELETE FROM Cliente WHERE CPF = ?";
+
+		try {
+
+			PreparedStatement statement = ConexaoMySQL.getConexaoMySQL().prepareStatement(sql);
+			statement.setString(1, CPF);
+
+			int rowsDeleted = statement.executeUpdate();
+			if (rowsDeleted > 0) {
+				System.out.println("A user was deleted successfully!");
+			}
+			return true;
+
+		} catch (SQLException e) {
+			System.out.println(e);
+			return false;
+		}
+	}
 }
