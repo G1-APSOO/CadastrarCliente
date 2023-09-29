@@ -1,17 +1,16 @@
 package classes;
-import excessoes.ExcessaoClienteMuitoAntigo;
-import excessoes.ExcessaoClienteMuitoNovo;
-import excessoes.ExcessaoDiaInvalido;
-import excessoes.ExcessaoEmailInvalido;
-import excessoes.ExcessaoMesInvalido;
-import excessoes.ExcessaoCPFInvalido;
-import excessoes.ExcessaoSomenteLetrasPermitidas;
-import excessoes.ExcessaoSomenteNumerosPositivosPermitidos;
-import excessoes.ExcessaoTelefoneInvalido;
-import excessoes.ExcessaoParametroVazio;
 
 import java.util.regex.Pattern;
 
+import excecoes.ExcecaoCPFInvalido;
+import excecoes.ExcecaoAnoInvalido;
+import excecoes.ExcecaoDiaInvalido;
+import excecoes.ExcecaoEmailInvalido;
+import excecoes.ExcecaoMesInvalido;
+import excecoes.ExcecaoParametroVazio;
+import excecoes.ExcecaoSomenteLetrasPermitidas;
+import excecoes.ExcecaoSomenteNumerosPositivosPermitidos;
+import excecoes.ExcecaoTelefoneInvalido;
 public class Cliente {
 	
 	private String CPF;
@@ -32,16 +31,15 @@ public class Cliente {
 	// O que for além do obrigatório a gente coloca como setTanan após criar a instancia
 	public Cliente(String CPF, String nome, String email, String telefone, 
 			int diaDoNascimento, int mesDoNascimento, int anoDoNascimento)
-	throws ExcessaoParametroVazio,
-		ExcessaoDiaInvalido,
-		ExcessaoMesInvalido,
-		ExcessaoClienteMuitoNovo,
-		ExcessaoClienteMuitoAntigo,
-		ExcessaoCPFInvalido,
-		ExcessaoSomenteLetrasPermitidas,
-		ExcessaoEmailInvalido,
-		ExcessaoSomenteNumerosPositivosPermitidos,
-		ExcessaoTelefoneInvalido {
+	throws ExcecaoParametroVazio,
+		ExcecaoDiaInvalido,
+		ExcecaoMesInvalido,
+		ExcecaoAnoInvalido,
+		ExcecaoCPFInvalido,
+		ExcecaoSomenteLetrasPermitidas,
+		ExcecaoEmailInvalido,
+		ExcecaoSomenteNumerosPositivosPermitidos,
+		ExcecaoTelefoneInvalido {
 		
 		setCPF(CPF);
 		setNome(nome);
@@ -50,77 +48,79 @@ public class Cliente {
 		setDataNascimento(diaDoNascimento, mesDoNascimento, anoDoNascimento);
 		
 	} 
-	
-
-	public void setCPF(String novoCPF) throws ExcessaoParametroVazio, ExcessaoCPFInvalido {
+	public void setCPF(String novoCPF) throws ExcecaoParametroVazio, ExcecaoCPFInvalido {
 		
 		if (novoCPF == null || novoCPF.isEmpty() || novoCPF.isBlank()) {
-			throw new ExcessaoParametroVazio("CPF");
+			throw new ExcecaoParametroVazio("CPF");
 		}
 		
 		boolean eValido = ValidadorCPF.isCPF(novoCPF);
 		
-		if (eValido == false) throw new ExcessaoCPFInvalido();
+		if (eValido == false) throw new ExcecaoCPFInvalido();
+
 		
 		CPF = novoCPF;
 	}
 
-	public void setNome(String nome) throws ExcessaoParametroVazio, ExcessaoSomenteLetrasPermitidas {
+	public void setNome(String nome) throws ExcecaoParametroVazio, ExcecaoSomenteLetrasPermitidas {
 		
 		if (nome == null || nome.isEmpty() || nome.isBlank()) {
-			throw new ExcessaoParametroVazio("nome");
+			throw new ExcecaoParametroVazio("nome");
 		}
 		
 		if (nome.matches("[a-zA-Z]+") == false) {
-			throw new ExcessaoSomenteLetrasPermitidas();
+			throw new ExcecaoSomenteLetrasPermitidas();
 		}
 		
 		this.nome = nome;
 	}
 
-	public void setRua(String rua) throws ExcessaoParametroVazio, ExcessaoSomenteLetrasPermitidas {
+	public void setRua(String rua) throws ExcecaoParametroVazio, ExcecaoSomenteLetrasPermitidas {
 		
 		if (rua == null || rua.isEmpty() || rua.isBlank()) {
-			throw new ExcessaoParametroVazio("rua");
+			throw new ExcecaoParametroVazio("rua");
 		}
 		
 		if (rua.matches("[a-zA-Z]+") == false) {
-			throw new ExcessaoSomenteLetrasPermitidas();
+			throw new ExcecaoSomenteLetrasPermitidas();
+
 		}
 		
 		this.rua = rua;
 	}
 
-	public void setBairro(String bairro) throws ExcessaoParametroVazio, ExcessaoSomenteLetrasPermitidas {
+
+	public void setBairro(String bairro) throws ExcecaoParametroVazio, ExcecaoSomenteLetrasPermitidas {
 		
 		if (bairro == null || bairro.isEmpty() || bairro.isBlank()) {
-			throw new ExcessaoParametroVazio("bairro");
+			throw new ExcecaoParametroVazio("bairro");
 		}
 		
 		if (bairro.matches("[a-zA-Z]+") == false) {
-			throw new ExcessaoSomenteLetrasPermitidas();
+			throw new ExcecaoSomenteLetrasPermitidas();
 		}
 		
 		this.bairro = bairro;
 	}
 
-	public void setCidade(String cidade) throws ExcessaoParametroVazio, ExcessaoSomenteLetrasPermitidas {
+	public void setCidade(String cidade) throws ExcecaoParametroVazio, ExcecaoSomenteLetrasPermitidas {
 		
 		if (cidade == null || cidade.isEmpty() || cidade.isBlank()) {
-			throw new ExcessaoParametroVazio("cidade");
+			throw new ExcecaoParametroVazio("cidade");
 		}
 		
 		if (cidade.matches("[a-zA-Z]+") == false) {
-			throw new ExcessaoSomenteLetrasPermitidas();
+			throw new ExcecaoSomenteLetrasPermitidas();
 		}
 		
 		this.cidade = cidade;
 	}
 	
-	public void setEmail(String email) throws ExcessaoParametroVazio, ExcessaoEmailInvalido {
+	public void setEmail(String email) throws ExcecaoParametroVazio, ExcecaoEmailInvalido {
 		
 		if (email == null || email.isEmpty() || email.isBlank()) {
-			throw new ExcessaoParametroVazio("email");
+			throw new ExcecaoParametroVazio("email");
+
 		}
 		
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
@@ -130,29 +130,29 @@ public class Cliente {
                   
 		Pattern pat = Pattern.compile(emailRegex);
 		if (pat.matcher(email).matches() == false) {
-			throw new ExcessaoEmailInvalido();
+			throw new ExcecaoEmailInvalido();
 		}
 		
 		this.email = email;
 	}
-	
-	public void setNumeroResidencia(int numeroResidencia) throws ExcessaoSomenteNumerosPositivosPermitidos {
+
+	public void setNumeroResidencia(int numeroResidencia) throws ExcecaoSomenteNumerosPositivosPermitidos {
 		
 		if (numeroResidencia <= 0) {
-			throw new ExcessaoSomenteNumerosPositivosPermitidos();
+			throw new ExcecaoSomenteNumerosPositivosPermitidos();
 		}
 		
 		this.numeroResidencia = numeroResidencia;
 	}
 	
-	public void setTelefone(String telefone) throws ExcessaoParametroVazio, ExcessaoTelefoneInvalido {
+	public void setTelefone(String telefone) throws ExcecaoParametroVazio, ExcecaoTelefoneInvalido {
 		
 		if (telefone == null || telefone.isEmpty() || telefone.isBlank()) {
-			throw new ExcessaoParametroVazio("telefone");
+			throw new ExcecaoParametroVazio("telefone");
 		}
 		
 		if (telefone.length() < 8 || telefone.length() > 11) {
-			throw new ExcessaoTelefoneInvalido();
+			throw new ExcecaoTelefoneInvalido();
 		}
 		
 		this.telefone = telefone;
@@ -163,11 +163,10 @@ public class Cliente {
 	}
 	
 	public void setDataNascimento(int dia, int mes, int ano) 
-	throws ExcessaoParametroVazio,
-		ExcessaoDiaInvalido,
-		ExcessaoMesInvalido, 
-		ExcessaoClienteMuitoAntigo,
-		ExcessaoClienteMuitoNovo {
+	throws ExcecaoParametroVazio,
+		ExcecaoDiaInvalido,
+		ExcecaoMesInvalido,
+		ExcecaoAnoInvalido {
 		
 		dataDeNascimento = new Data(dia, mes, ano);
 	}
