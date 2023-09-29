@@ -1,6 +1,7 @@
 import classes.Cliente;
 import classes.UnidadeFederativa;
-import conexaoBanco.ConexaoMySQL;
+import conexaoBanco.ClienteDAO;
+import conexaoBanco.Conexao;
 
 public class Principal {
 	public static void main(String[] args) {
@@ -14,25 +15,31 @@ public class Principal {
 		c.setNumeroResidencia(1061);
 		c.setUF(UnidadeFederativa.MS);
 
-		ConexaoMySQL connection = new ConexaoMySQL();
-		System.out.println(connection.statusConection());
+		System.out.println(Conexao.statusConection());
 
-		connection.getConexaoMySQL();
-		System.out.println(connection.statusConection());
-
+		// inserção
 		System.out.println("Inserindo Cliente");
-		System.out.println(connection.InserirCliente(c));
+		System.out.println(ClienteDAO.inserirCliente(c));
 
-		System.out.println("bucando cliente:");
-		Cliente c2 = connection.BuscarCliente("08010842109");
+		// busca
+		System.out.println("Bucando cliente:");
+		Cliente c2 = ClienteDAO.buscarCliente("08010842109");
+
 		System.out.println(c2.getNome());
 		System.out.println(c2.getTelefone());
 		System.out.println(c2.getDataNascimento().getData());
 
-		// System.out.println("Deletando Cliente");
-		// System.out.println(connection.DeletarCliente("08010842109"));
+		// atualização
+		c2.setNome("Pedro Paulo Araujo Silva");
 
-		connection.FecharConexao();
+		System.out.println("Atualizando Cliente");
+		System.out.println(ClienteDAO.atualizarCliente(c2));
+
+		// deleção
+		// System.out.println("Deletando Cliente");
+		// System.out.println(ClienteDAO.deletarCliente("08010842109"));
+
+		Conexao.FecharConexao();
 
 	}
 }
