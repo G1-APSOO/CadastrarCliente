@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+
 import excecoes.ExcecaoAnoInvalido;
 import excecoes.ExcecaoDiaInvalido;
 import excecoes.ExcecaoMesInvalido;
@@ -19,7 +20,6 @@ public class Data {
     	ExcecaoDiaInvalido,
     	ExcecaoMesInvalido,
         ExcecaoAnoInvalido {
-
         setAno(ano);
         setMes(mes);
         setDia(dia);
@@ -75,6 +75,7 @@ public class Data {
         calendario.set(Calendar.MONTH, mes);
 
         if (dia > calendario.getActualMaximum(Calendar.DAY_OF_MONTH)) throw new ExcecaoDiaInvalido();
+
 
         this.dia = dia;
 

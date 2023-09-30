@@ -1,4 +1,5 @@
 package classes;
+
 import java.util.regex.Pattern;
 
 import excecoes.ExcecaoCPFInvalido;
@@ -11,7 +12,6 @@ import excecoes.ExcecaoNaoPreenchido;
 import excecoes.ExcecaoSomenteLetrasPermitidas;
 import excecoes.ExcecaoSomenteNumerosPositivosPermitidos;
 import excecoes.ExcecaoTelefoneInvalido;
-
 public class Cliente {
 	
 	private String CPF;
@@ -49,7 +49,6 @@ public class Cliente {
 		setDataNascimento(diaDoNascimento, mesDoNascimento, anoDoNascimento);
 		
 	} 
-	
 
 	public void setCPF(String novoCPF) throws ExcecaoNaoPreenchido, ExcecaoCPFInvalido {
 				
@@ -58,6 +57,7 @@ public class Cliente {
 		boolean eValido = ValidadorCPF.isCPF(novoCPF);
 		
 		if (eValido == false) throw new ExcecaoCPFInvalido();
+
 		
 		CPF = novoCPF;
 	}
@@ -103,7 +103,7 @@ public class Cliente {
 
 		this.email = email;
 	}
-	
+
 	public void setNumeroResidencia(int numeroResidencia) throws ExcecaoSomenteNumerosPositivosPermitidos {
 		
 		if (numeroResidencia <= 0) throw new ExcecaoSomenteNumerosPositivosPermitidos();
