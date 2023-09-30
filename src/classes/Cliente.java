@@ -73,7 +73,6 @@ public class Cliente {
 	public void setRua(String rua) throws ExcecaoNaoPreenchido, ExcecaoSomenteLetrasPermitidas {
 		
 		if (rua == null || rua.isEmpty() || rua.isBlank()) throw new ExcecaoNaoPreenchido("rua");
-		if (rua.matches("[a-zA-Z]+( [a-zA-Z]+)*") == false) throw new ExcecaoSomenteLetrasPermitidas("rua");
 		
 		this.rua = rua;
 	}
@@ -81,7 +80,6 @@ public class Cliente {
 	public void setBairro(String bairro) throws ExcecaoNaoPreenchido, ExcecaoSomenteLetrasPermitidas {
 		
 		if (bairro == null || bairro.isEmpty() || bairro.isBlank()) throw new ExcecaoNaoPreenchido("bairro");
-		if (bairro.matches("[a-zA-Z]+( [a-zA-Z]+)*") == false) throw new ExcecaoSomenteLetrasPermitidas("bairro");
 		
 		this.bairro = bairro;
 	}
