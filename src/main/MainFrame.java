@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import classes.Cliente;
+import classes.PopUpError;
 import classes.UnidadeFederativa;
 import conexaoBanco.ClienteDAO;
 
@@ -382,6 +383,7 @@ public class MainFrame extends JFrame {
 
 				Cliente novoCliente = new Cliente(cpf, nome, email, telefone, diaDoNascimento, mesDoNascimento,
 						anoDoNascimento);
+				
 				Logger logger = Logger.getLogger(MainFrame.class.getName());
 				logger.log(Level.INFO, "Cliente criado com sucesso");
 
@@ -404,11 +406,23 @@ public class MainFrame extends JFrame {
 				}
 
 			} catch (Exception excpt) {
+				this.popUpError(excpt);
 				Logger logger = Logger.getLogger(MainFrame.class.getName());
 				logger.log(Level.SEVERE, excpt.getMessage());
 			}
 
 		});
+	}
+	
+	private void popUpError(Exception excpt) {
+		if(excpt.getClass().getName().matches("excecoes[\\.][a-zA-Z]*") == false) 
+		{
+			PopUpError popError = new PopUpError("Erro no preenchimento do formulário\nTente Novamente");
+		}
+		else
+		{
+			PopUpError popError = new PopUpError(excpt.getMessage());
+		}
 	}
 
 }

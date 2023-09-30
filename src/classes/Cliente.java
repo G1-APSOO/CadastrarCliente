@@ -65,7 +65,7 @@ public class Cliente {
 	public void setNome(String nome) throws ExcecaoNaoPreenchido, ExcecaoSomenteLetrasPermitidas {
 		
 		if (nome == null || nome.isEmpty() || nome.isBlank()) throw new ExcecaoNaoPreenchido("Nome não está preenchido");
-		if (nome.matches("[a-zA-Z]+") == false) throw new ExcecaoSomenteLetrasPermitidas("nome");
+		if (nome.matches("[a-zA-Z]+( [a-zA-Z]+)*") == false) throw new ExcecaoSomenteLetrasPermitidas("nome");
 		
 		this.nome = nome;
 	}
@@ -73,6 +73,7 @@ public class Cliente {
 	public void setRua(String rua) throws ExcecaoNaoPreenchido, ExcecaoSomenteLetrasPermitidas {
 		
 		if (rua == null || rua.isEmpty() || rua.isBlank()) throw new ExcecaoNaoPreenchido("rua");
+		if (rua.matches("[a-zA-Z]+( [a-zA-Z]+)*") == false) throw new ExcecaoSomenteLetrasPermitidas("rua");
 		
 		this.rua = rua;
 	}
@@ -80,6 +81,7 @@ public class Cliente {
 	public void setBairro(String bairro) throws ExcecaoNaoPreenchido, ExcecaoSomenteLetrasPermitidas {
 		
 		if (bairro == null || bairro.isEmpty() || bairro.isBlank()) throw new ExcecaoNaoPreenchido("bairro");
+		if (bairro.matches("[a-zA-Z]+( [a-zA-Z]+)*") == false) throw new ExcecaoSomenteLetrasPermitidas("bairro");
 		
 		this.bairro = bairro;
 	}
@@ -87,7 +89,7 @@ public class Cliente {
 	public void setCidade(String cidade) throws ExcecaoNaoPreenchido, ExcecaoSomenteLetrasPermitidas {
 		
 		if (cidade == null || cidade.isEmpty() || cidade.isBlank()) throw new ExcecaoNaoPreenchido("cidade");
-		if (cidade.matches("[a-zA-Z]+") == false) throw new ExcecaoSomenteLetrasPermitidas("cidade");
+		if (cidade.matches("[a-zA-Z]+( [a-zA-Z]+)*") == false) throw new ExcecaoSomenteLetrasPermitidas("cidade");
 		
 		this.cidade = cidade;
 	}
