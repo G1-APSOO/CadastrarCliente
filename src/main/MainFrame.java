@@ -1,8 +1,24 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
@@ -10,21 +26,6 @@ import classes.Cliente;
 import classes.PopUpError;
 import classes.UnidadeFederativa;
 import conexaoBanco.ClienteDAO;
-
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
-
-import java.awt.GridLayout;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.awt.Color;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
 
 public class MainFrame extends JFrame {
 
@@ -399,11 +400,20 @@ public class MainFrame extends JFrame {
 					novoCliente.setUF(UF);
 
 				// TODO Chama a classe intermediaria entre o Banco de dados e a Interface
-
+				
 				if (ClienteDAO.inserirCliente(novoCliente)) {
 					// a ser removido depois dos popups
 					System.out.println("Cliente Inserido com sucesso!");
+					JOptionPane.showMessageDialog(null, "Cliente Inserido com sucesso!", "Cadastro Cliente", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					if(ClienteDAO.buscarCliente(novoCliente.getCPF())!= null) {
+						JOptionPane.showMessageDialog(null, "CPF já existente!", "Cadastro Cliente", JOptionPane.ERROR_MESSAGE);
+					}else {
+						JOptionPane.showMessageDialog(null, "Não foi possível inserir o cliente, verifique as informações!", "Cadastro Cliente", JOptionPane.ERROR_MESSAGE);
+					}
 				}
+				
+				
 
 			} catch (Exception excpt) {
 				this.popUpError(excpt);
